@@ -1,0 +1,80 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block title %}EvE Poker{% endblock %}</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		{% block head-css %}
+		<link rel="stylesheet" type="text/css" href="{% static "assets/bootstrap/css/bootstrap.css" %}">
+		<link rel="stylesheet" type="text/css" href="{% static "assets/bootstrap/css/bootstrap.min.css" %}">
+		<link rel="stylesheet" type="text/css" href="{% static "assets/bootstrap/css/bootstrap.css" %}">
+	    <!-- Custom styles for this template -->
+	    <link href="{% static "assets/vendor/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+	    <link href="{% static "assets/vendor/magnific-popup/magnific-popup.css" %}" rel="stylesheet">
+	    <link rel="stylesheet" type="text/css" href="{% static "assets/css/creative.min.css" %}">
+		{% endblock %}
+	</head>
+		
+		
+	<!-- This is the start of the navigation bar at the top of the page-->
+	<header>
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="/">EvE Poker </a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li><a href="/help/">Help</a></li>
+		      <li><a href="/tables/">Tables</a></li>
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+
+				{% if user.is_authenticated %}
+		      		<li><a href="/users/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+				{% else %}
+		      		<li><a href="/users/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+				{% endif %}
+
+		    </ul>
+		  </div>
+		</nav>
+	</header>
+
+	<!-- This is where you'll put your page content. Leave it blank for now. -->
+	{% block content %}{% endblock %}
+
+	<!-- This is where the footer begins -->
+	<footer>
+		<div class= "navbar navbar-inverse navbar-static-bottom" role="navigation">
+		<div class="navbar-text pull-left">
+		</div>
+		<div class= "navbar-text pull-right">
+		<!-- Add in your social media / github links here -->
+		<a href="https://github.com/clarkdatalabs"><i class="fa fa-github-square fa-2x"></i></a>
+		</div>
+		<!--Below is the copyright information for the site. You can fill in your own here.-->
+		<div class="navbar-text pull-left">
+		&copy; Blackout Projects, 2018
+		</div>
+	</div>	
+	</footer>
+
+	<!--This is my javascript block. If you've included the javascript files you need in the 'static' folder then there's no need to 
+	put this here and you can delete the block below.-->
+	{% block head-javascript %}
+    <script src="{% static "assets/vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "assets/vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "assets/vendor/jquery-easing/jquery.easing.min.js" %}"></script>
+    <script src="{% static "assets/vendor/scrollreveal/scrollreveal.min.j" %}s"></script>
+    <script src="{% static "assets/vendor/magnific-popup/jquery.magnific-popup.min.js" %}"></script>
+	<script src="{% static "assets/bootstrap/js/bootstrap.min.js" %}"></script>
+	<script src="{% static "assets/bootstrap/js/bootstrap.js" %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	{% endblock %}
+</html>
