@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static "assets/css/index.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="site-wrapper-inner">
+<h1>Choose and join your table!</h1>
+<a href="newtable">Create Table</a>
+
+<div class="ustify-content-md-center">
+<center>
+<table class="table">
+
+<tr><td>ID</td><td>Name</td><td> Public</td> <td> Blind</td> <td>Limit</td> <td>Slots</td></tr>
+{% for table in tables %}
+
+<tr>
+<td>{{ table.id }}</td>
+<td>{{ table.name }}</td>
+<td>{{ table.public }}</td>
+<td>{{ table.tableBlind }}</td>
+<td>{{ table.tableLimit }}</td>
+<td>
+
+{% if table.currentUsers < 7 %}
+<a href="/tables/{{ table.id }}">Join {{ table.currentUsers }}/7</a>
+{% else %}
+{{ table.currentUsers }}/7
+{% endif %}
+  
+</td>
+</tr>
+{% endfor %}
+</table>
+</center>
+</div>
+</div>
+
+{% endblock %}

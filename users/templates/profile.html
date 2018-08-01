@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<link href="{% static "assets/css/index.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="site-wrapper-inner">
+
+<h1>Hey  {{ user.username }}</h1>
+<p>
+Your Balance: {{ UserStats.balance }}
+<h2>Here are some links to the other pages</h2>
+
+<a href="/tables" class="button">Find a Table</a>
+</div>
+
+{% endblock %}
