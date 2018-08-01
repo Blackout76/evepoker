@@ -13,11 +13,11 @@ Django may be installed on the server by using
 
 and then
 
->sudo pip install -e django-trunk/
+>sudo pip3 install -e django-trunk/
 
 #### Django Application Dependencies
 We require the Pillow module, to install:
-> pip install Pillow
+> pip3 install Pillow
 
 
 ### Node.js
@@ -33,8 +33,7 @@ then cd to the /sockets/ directory and run
 
 ### liteSQL Database
 pokernet currently utilizes the liteSQL database, to create, navigate to the application directory and run:
->python manage.py makemigration
->python manage.py migrate
+>python3 manage.py migrate --run-syncdb
 
 ## Development
 To run both server and client locally during development, a script is provided that will run both the node.js and django dev server. To use, simply cd into the project directory and run:
