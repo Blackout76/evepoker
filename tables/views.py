@@ -3,8 +3,7 @@ from django.http import HttpResponse
 from .models import Table, NewTableForm
 from django.contrib.auth import authenticate, login
 from django.template import RequestContext
-from users.models import UserStats
-from django.contrib.auth.models import User
+from users.models import User, UserStats
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from decorators import esi_login_required
@@ -37,10 +36,12 @@ def leaveTable(request):
 		tableid = request.POST['tableid'];
 		pot = request.POST['pot'];
 		
+		"""
 		#update user balance
 		user = UserStats.objects.get(user=userid)
 		user.balance = user.balance+float(pot)
 		user.save()
+		"""
 		
 		#Change number of tables
 		table = Table.objects.get(id=tableid)
@@ -61,11 +62,11 @@ def joinTable(request, tableID=1):
 	args['tables'] = table
 
 	# Add User
-	current_user = request.user
+	current_user = User.objects.get(character_id=request.session['char']['CharacterID'])
 
 	args['table'] = table.id
-	args['username'] = current_user.username
-	args['id'] = current_user.id
+	args['username'] = current_user.character_name
+	args['id'] = current_user.character_id
 	args['tableLimit'] = table.tableLimit
 	args['tableBlind'] = table.tableBlind
 	args['tableName'] = table.name
@@ -73,7 +74,7 @@ def joinTable(request, tableID=1):
 	
 	## Inject amount of player $$ into game
 	args['amountPlay'] = table.tableBlind*25
-	UserStats_t = UserStats.objects.get(user=request.user)
+	UserStats_t = current_user.user_stats
 	UserStats_t.balance = UserStats_t.balance-args['amountPlay']
 	UserStats_t.save()
 	
@@ -95,7 +96,7 @@ def newtable(request):
 			newTableEntry.save()
 			args = RequestContext(request)
 			
-			args['user'] = request.user
+			args['user'] = User(character_id=request.session['char']['CharacterID'])
 			return redirect( '/tables/'+ str(newTableEntry.id));
 	
 	form = NewTableForm() # An unbound form
