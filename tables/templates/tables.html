@@ -7,44 +7,42 @@
 
 {% block content %}
 
-<div class="site-wrapper-inner">
-<h1>Choose and join your table!</h1>
-<a href="newtable">Create Table</a>
+<div class="">
+	<h1>Choose and join your table!</h1>
+	<a href="newtable">Create Table</a>
 
-<div class="ustify-content-md-center">
-<center>
-<table id="tables" class="table table-striped table-hover table-bordered">
-	<thead class="thead-dark">
-		<tr>
-			<th scope="col" data-field="ID">ID</th>
-			<th scope="col" data-field="Name">Name</th>
-			<th scope="col" data-field="Public">Public</th>
-			<th scope="col" data-field="Blind">Blind</th>
-			<th scope="col" data-field="Limit">Limit</th>
-			<th scope="col" data-field="Slots">Slots</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for table in tables %}
-		<tr>
-			<td>{{ table.id }}</td>
-			<td>{{ table.name }}</td>
-			<td>{{ table.public }}</td>
-			<td>{{ table.tableBlind }}</td>
-			<td>{{ table.tableLimit }}</td>
-			<td>
-			{% if table.currentUsers < 7 %}
-			<a href="/tables/{{ table.id }}">Join {{ table.currentUsers }}/7</a>
-			{% else %}
-			{{ table.currentUsers }}/7
-			{% endif %}
-			</td>
-		</tr>
-		{% endfor %}
-	</tbody>
-</table>
-</center>
-</div>
+	<div class="ustify-content-md-center">
+		<table id="tables" class="table table-striped table-hover table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col" data-field="ID">ID</th>
+					<th scope="col" data-field="Name">Name</th>
+					<th scope="col" data-field="Public">Public</th>
+					<th scope="col" data-field="Blind">Blind</th>
+					<th scope="col" data-field="Limit">Limit</th>
+					<th scope="col" data-field="Slots">Slots</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for table in tables %}
+				<tr>
+					<td>{{ table.id }}</td>
+					<td>{{ table.name }}</td>
+					<td>{{ table.public }}</td>
+					<td>{{ table.tableBlind }}</td>
+					<td>{{ table.tableLimit }}</td>
+					<td>
+					{% if table.currentUsers < 7 %}
+					<a href="/tables/{{ table.id }}">Join {{ table.currentUsers }}/7</a>
+					{% else %}
+					{{ table.currentUsers }}/7
+					{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 {% if tables.has_other_pages %}
