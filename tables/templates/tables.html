@@ -13,31 +13,60 @@
 
 <div class="ustify-content-md-center">
 <center>
-<table class="table">
-
-<tr><td>ID</td><td>Name</td><td> Public</td> <td> Blind</td> <td>Limit</td> <td>Slots</td></tr>
-{% for table in tables %}
-
-<tr>
-<td>{{ table.id }}</td>
-<td>{{ table.name }}</td>
-<td>{{ table.public }}</td>
-<td>{{ table.tableBlind }}</td>
-<td>{{ table.tableLimit }}</td>
-<td>
-
-{% if table.currentUsers < 7 %}
-<a href="/tables/{{ table.id }}">Join {{ table.currentUsers }}/7</a>
-{% else %}
-{{ table.currentUsers }}/7
-{% endif %}
-  
-</td>
-</tr>
-{% endfor %}
+<table id="tables" class="table table-striped table-hover table-bordered">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col" data-field="ID">ID</th>
+			<th scope="col" data-field="Name">Name</th>
+			<th scope="col" data-field="Public">Public</th>
+			<th scope="col" data-field="Blind">Blind</th>
+			<th scope="col" data-field="Limit">Limit</th>
+			<th scope="col" data-field="Slots">Slots</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for table in tables %}
+		<tr>
+			<td>{{ table.id }}</td>
+			<td>{{ table.name }}</td>
+			<td>{{ table.public }}</td>
+			<td>{{ table.tableBlind }}</td>
+			<td>{{ table.tableLimit }}</td>
+			<td>
+			{% if table.currentUsers < 7 %}
+			<a href="/tables/{{ table.id }}">Join {{ table.currentUsers }}/7</a>
+			{% else %}
+			{{ table.currentUsers }}/7
+			{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 </center>
 </div>
 </div>
+
+{% if tables.has_other_pages %}
+  <ul class="pagination">
+    {% if tables.has_previous %}
+      <li><a href="?page={{ tables.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in tables.paginator.page_range %}
+      {% if tables.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if tables.has_next %}
+      <li><a href="?page={{ tables.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 
 {% endblock %}

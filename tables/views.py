@@ -6,14 +6,23 @@ from django.template import RequestContext
 from users.models import UserStats
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # display tables on home page
 def tables(request):
 	if not request.user.is_authenticated():
 		return redirect('/users/login/')
 	args = RequestContext(request)
-	args['tables'] = Table.objects.all()
+	table_list = Table.objects.all()
+	page = request.GET.get('page', 1)
+
+	paginator = Paginator(table_list, 15)
+	try:
+		args['tables'] = paginator.page(page)
+	except PageNotAnInteger:
+		args['tables'] = paginator.page(1)
+	except EmptyPage:
+		args['tables'] = paginator.page(paginator.num_pages)
 
 	return render_to_response('tables.html', args)
 
@@ -42,7 +51,7 @@ def leaveTable(request):
 # join a table
 def joinTable(request, tableID=1):
 
-    # make sure were authenticated
+	# make sure were authenticated
 	if not request.user.is_authenticated():
 		return redirect('/users/login/')
 		
@@ -93,5 +102,5 @@ def newtable(request):
 	
 	form = NewTableForm() # An unbound form
 	return render(request, 'createTable.html', {'form': form})
-    
-    
+	
+	
