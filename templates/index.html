@@ -8,69 +8,71 @@
 {% block content %}
 
 <header class="masthead text-center text-white d-flex">
-  <div class="container my-auto">
-	  <div class="row">
-	    <div class="col-lg-10 mx-auto">
-	    <h1 class="text-uppercase">
-	      <strong>Eve online poker game</strong>
-	    </h1>
-	    <hr>
-	    </div>
-	    <div class="col-lg-8 mx-auto">
-	    <p class="text-faded mb-5">Play your ISK and try to win against other pilots of New Eden!</p>
-	    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+	<div class="container my-auto">
+		<div class="row">
+			<div class="col-lg-10 mx-auto">
+			<h1 class="text-uppercase">
+				<strong>Eve online poker game</strong>
+			</h1>
+			<hr>
+			</div>
+			<div class="col-lg-8 mx-auto">
+			<p class="text-faded mb-5">Play your ISK and try to win against other pilots of New Eden!</p>
+			<a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
 
-		{% if user.is_authenticated %}
-	  		<a class="btn btn-primary btn-xl js-scroll-trigger" href="/tables/">Get started</a>
-		{% else %}
-	  		<a class="btn btn-primary btn-xl js-scroll-trigger" href="/users/login">Get started</a>
-		{% endif %}
-	    
-	    </div>
-	  </div>
-  </div>
+				{% if esi %}
+					{% autoescape off %}
+						{{ esi }}
+					{% endautoescape %}
+				{% else %}
+					<a class="btn btn-primary btn-xl js-scroll-trigger" href="/tables/">Get started</a>
+				{% endif %}
+			
+			</div>
+		</div>
+	</div>
 </header>
 
 <section id="about">
-  <div class="container">
-  <div class="row">
-    <div class="col-lg-12 text-center">
-    <h2 class="section-heading">How does it work?</h2>
-    <hr class="my-4">
-    </div>
-  </div>
-  </div>
-  <div class="container">
-  <div class="row">
-    <div class="col-lg-3 col-md-6 text-center">
-    <div class="service-box mt-5 mx-auto">
-      <i class="fa fa-4x fa-cubes text-primary mb-3 sr-icons"></i>
-      <h3 class="mb-3">Login with Eve Online</h3>
-      <p class="text-muted mb-0">Eve online ESI tool allow external application to get game informations</p>
-    </div>
-    </div>
-    <div class="col-lg-3 col-md-6 text-center">
-    <div class="service-box mt-5 mx-auto">
-      <i class="fa fa-4x fa-cogs text-primary mb-3 sr-icons"></i>
-      <h3 class="mb-3">Credit account</h3>
-      <p class="text-muted mb-0">You can credit your account by sending ISK to a specific corporation.</p>
-    </div>
-    </div>
-    <div class="col-lg-3 col-md-6 text-center">
-    <div class="service-box mt-5 mx-auto">
-      <i class="fa fa-4x fa-gamepad text-primary mb-3 sr-icons"></i>
-      <h3 class="mb-3">Play games</h3>
-      <p class="text-muted mb-0">Play many poker game and win ISK against other pilot of New Eden!</p>
-    </div>
-    </div>
-    <div class="col-lg-3 col-md-6 text-center">
-    <div class="service-box mt-5 mx-auto">
-      <i class="fa fa-4x fa-balance-scale text-primary mb-3 sr-icons"></i>
-      <h3 class="mb-3">Claim ISK</h3>
-      <p class="text-muted mb-0">You can get back ISK in Eve Online by claiming them one time per week!</p>
-    </div>
-    </div>
-  </div>
-  </div>
+	<div class="container">
+	<div class="row">
+		<div class="col-lg-12 text-center">
+		<h2 class="section-heading">How does it work?</h2>
+		<hr class="my-4">
+		</div>
+	</div>
+	</div>
+	<div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-md-6 text-center">
+		<div class="service-box mt-5 mx-auto">
+			<i class="fa fa-4x fa-cubes text-primary mb-3 sr-icons"></i>
+			<h3 class="mb-3">Login with Eve Online</h3>
+			<p class="text-muted mb-0">Eve online ESI tool allow external application to get game informations</p>
+		</div>
+		</div>
+		<div class="col-lg-3 col-md-6 text-center">
+		<div class="service-box mt-5 mx-auto">
+			<i class="fa fa-4x fa-cogs text-primary mb-3 sr-icons"></i>
+			<h3 class="mb-3">Credit account</h3>
+			<p class="text-muted mb-0">You can credit your account by sending ISK to a specific corporation.</p>
+		</div>
+		</div>
+		<div class="col-lg-3 col-md-6 text-center">
+		<div class="service-box mt-5 mx-auto">
+			<i class="fa fa-4x fa-gamepad text-primary mb-3 sr-icons"></i>
+			<h3 class="mb-3">Play games</h3>
+			<p class="text-muted mb-0">Play many poker game and win ISK against other pilot of New Eden!</p>
+		</div>
+		</div>
+		<div class="col-lg-3 col-md-6 text-center">
+		<div class="service-box mt-5 mx-auto">
+			<i class="fa fa-4x fa-balance-scale text-primary mb-3 sr-icons"></i>
+			<h3 class="mb-3">Claim ISK</h3>
+			<p class="text-muted mb-0">You can get back ISK in Eve Online by claiming them one time per week!</p>
+		</div>
+		</div>
+	</div>
+	</div>
 </section>
 {% endblock %}

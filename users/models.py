@@ -5,7 +5,6 @@ class UserStats(models.Model):
 	# link to user model
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	balance = models.FloatField()
-	picture = models.ImageField(upload_to='uploaded_files', blank=True)
 	
 	# Override unicode method
 	def __unicode__(self):

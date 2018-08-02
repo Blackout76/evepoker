@@ -7,11 +7,11 @@ from users.models import UserStats
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from decorators import esi_login_required
 
 # display tables on home page
+@esi_login_required
 def tables(request):
-	if not request.user.is_authenticated():
-		return redirect('/users/login/')
 	args = RequestContext(request)
 	table_list = Table.objects.all()
 	page = request.GET.get('page', 1)
@@ -49,11 +49,8 @@ def leaveTable(request):
 	return HttpResponse('UPDATED',status=200)
 	
 # join a table
+@esi_login_required
 def joinTable(request, tableID=1):
-
-	# make sure were authenticated
-	if not request.user.is_authenticated():
-		return redirect('/users/login/')
 		
 	#Update number of users
 	table = Table.objects.get(id=tableID)
@@ -83,6 +80,7 @@ def joinTable(request, tableID=1):
 	return render_to_response('game.html', args)
 
 
+@esi_login_required
 def newtable(request):
 	if request.method == 'POST': # If the form has been submitted...
 		# ContactForm was defined in the the previous section

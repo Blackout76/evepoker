@@ -2,18 +2,22 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from .models import UserStats
-from .forms import UserForm, UserStatsForm
+from .forms import UserForm
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+from esi.esi import esi_app, esi_security, esi_verify
 
 # get the profile
+@login_required()
 def profile(request):
 	args = RequestContext(request)
 	args['UserStats'] = get_object_or_404(UserStats, user=request.user)
 	return render_to_response('profile.html', args)
-   
+
+"""
 # register a new user 
 @csrf_exempt 
 def register(request):
@@ -78,7 +82,8 @@ def user_login(request):
 		username = request.POST['username']
 		password = request.POST['password']
 		
-		user = authenticate(username=username, password=password)
+		user = authenticate
+		(username=username, password=password)
 		
 		# we've got a user
 		if user is not None:
@@ -98,6 +103,58 @@ def user_login(request):
 	# not post, so show form
 	else:
 		return render_to_response('login.html',{}, context)
+"""
+# user login
+def user_login(request):
+	"""
+	if 'token' in request.session :
+		esi_app, security, client, scopes = get_esi()
+		try:
+			security.update_token(request.session['token'])
+		except APIException as err:
+			print (err)
+			secure = security.get_auth_uri(scopes=scopes)
+			return HttpResponse("<a href='"+secure+"'><img src='" + ESI_CONNECT_IMG_BAR + "'></a>")
+		try:
+			verify = security.verify()
+		except:
+			secure = security.get_auth_uri(scopes=scopes)
+			return HttpResponse("<a href='"+secure+"'><img src='" + ESI_CONNECT_IMG_BAR + "'></a>")
+		request.session['char'] = verify
+		return HttpResponseRedirect('/')
+	else:
+		secure = security.get_auth_uri(scopes=scopes)
+		return HttpResponse("<a href='"+secure+"'><img src='" + ESI_CONNECT_IMG_BAR + "'></a>")
+	"""
+	return HttpResponseRedirect('/')
+
+# user oauth
+def oauth(request):
+	print (request)
+	code = request.GET.get('code')
+	token = esi_security.auth(code)
+	request.session['token'] = token
+	request.session['char'] = esi_verify()
+
+	"""
+	user = UserStats.get_object(user_esi_id=id)
+	
+	# we've not got a user
+	if user is None:
+		# create associated user stats, commit after changes
+		user = User(username="")
+		userstats = UserStats()
+		userstats.user = user
+		userstats.balance = 0
+		userstats.save()
+
+	# is the account active (not banned)
+	if not user.is_active:
+		return HttpResponse("Your account is disabled")
+	else:
+	"""
+	return HttpResponseRedirect('/tables/')
+
 
 # user logout    
 def user_logout(request):

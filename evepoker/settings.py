@@ -135,9 +135,3 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_ROOT = os.path.realpath('.') + '/static/'
-
-# EVE Online conf
-ESI_CLIENT_ID = 'c85cc6df464c4cefb023bb0828ad5ffd'
-ESI_SECRET_KEY = 'IQghn5ydzhhwxiOqmtZBVP7wMFQI8b2eYNcxMX1X'
-ESI_CALLBACK_URL = "http://localhost:"+str(SERVER_PORT)+"/oauth"
-ESI_SCOPES = []
