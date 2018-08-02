@@ -17,7 +17,7 @@ and then
 
 #### Django Application Dependencies
 We require the Pillow module, to install:
-> pip3 install Pillow
+> pip3 install -r requirement_file.txt
 
 
 ### Node.js
