@@ -77,7 +77,7 @@ def joinTable(request, tableID=1):
 	args['amountPlay'] = table.tableBlind*25
 	current_user_stats.changeBalance(table.tableBlind*25)
 
-	request.session['userinfo']['userstats']['balance'] = current_user_stats.balance
+	request.session['userinfo']['userstats'] = current_user_stats.getInfo()
 	
 	return render_to_response('game.html', args)
 

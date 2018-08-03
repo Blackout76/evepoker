@@ -30,6 +30,6 @@ class UserStats(models.Model):
 
 	def getInfo(self):
 		return {
-			"balance": self.balance
+			"balance": "{:,}".format(self.balance)
 		}
 			

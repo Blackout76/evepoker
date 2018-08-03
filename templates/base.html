@@ -32,11 +32,17 @@
 		    </ul>
 		    <ul class="nav navbar-nav navbar-right">
 		    	<div id="userbar">
+		    		<h4>
 					{% if request.session.char %}
-			      		<li><a href="/users">{{ request.session.userinfo.userstats.balance }} ISK </a><a href="/users/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
+			      		<li>
+			      			<a href="help.html"><span class="glyphicon glyphicon-plus" title="Add ISK" style="margin-right: 10px;"></span></a>
+			      			<a href="/users">{{ request.session.userinfo.userstats.balance }} ISK </a>
+			      			<a href="/users/logout"><span class="glyphicon glyphicon-log-out" title="Logout" style="margin-left: 10px;margin-right: 5px;"></span></a>
+			      		</li>
 					{% else %}
 			      		<li><a href="/users/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
 					{% endif %}
+					</h4>
 		    	</div>
 		    </ul>
 		  </div>

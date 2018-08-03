@@ -33,7 +33,7 @@ def oauth(request):
 		user = User()
 		user.character_id = request.session['char']['CharacterID']
 		user.character_name = request.session['char']['CharacterName']
-		user_stats = UserStats(balance=0)
+		user_stats = UserStats(balance=59879896.56)
 		user_stats.save()
 		user.user_stats = user_stats
 		user.save()
