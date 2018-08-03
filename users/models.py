@@ -10,6 +10,13 @@ class User(models.Model):
 	def __unicode__(self):
 		return self.character_name
 
+	def getInfo(self):
+		return {
+			"username": self.character_name,
+			"userstats": self.user_stats.getInfo()
+		}
+
+
 class UserStats(models.Model):
 	balance = models.FloatField()
 		
@@ -18,5 +25,11 @@ class UserStats(models.Model):
 		if (newVal <= 0):
 			newVal = 0
 		self.balance = newVal
+		self.save()
 		return newVal
+
+	def getInfo(self):
+		return {
+			"balance": self.balance
+		}
 			

@@ -31,12 +31,13 @@
 		      <li><a href="/tables/">Tables</a></li>
 		    </ul>
 		    <ul class="nav navbar-nav navbar-right">
-
-				{% if user.is_authenticated %}
-		      		<li><a href="/users/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-				{% else %}
-		      		<li><a href="/users/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-				{% endif %}
+		    	<div id="userbar">
+					{% if request.session.char %}
+			      		<li><a href="/users">{{ request.session.userinfo.userstats.balance }} ISK </a><a href="/users/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
+					{% else %}
+			      		<li><a href="/users/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+					{% endif %}
+		    	</div>
 		    </ul>
 		  </div>
 		</nav>
@@ -64,6 +65,7 @@
 	<!--This is my javascript block. If you've included the javascript files you need in the 'static' folder then there's no need to 
 	put this here and you can delete the block below.-->
 	{% block head-javascript %}
+    <script src="{% static "assets/js/userbar.js" %}"></script>
     <script src="{% static "assets/vendor/jquery/jquery.min.js" %}"></script>
     <script src="{% static "assets/vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
     <script src="{% static "assets/vendor/jquery-easing/jquery.easing.min.js" %}"></script>

@@ -11,11 +11,11 @@ from decorators import esi_login_required
 # display tables on home page
 @esi_login_required
 def tables(request):
-	args = RequestContext(request)
+	args = {}
 	table_list = Table.objects.all()
 	page = request.GET.get('page', 1)
 
-	paginator = Paginator(table_list, 15)
+	paginator = Paginator(table_list, 2)
 	try:
 		args['tables'] = paginator.page(page)
 	except PageNotAnInteger:
@@ -23,12 +23,12 @@ def tables(request):
 	except EmptyPage:
 		args['tables'] = paginator.page(paginator.num_pages)
 
-	return render_to_response('tables.html', args)
+	return render(request, 'tables.html', args)
 
 # Leave table REST interface
 @csrf_exempt
 def leaveTable(request):
-	args = RequestContext(request)
+	args = {}
 	if request.method == 'POST':
 	
 		# Parse POST variables
@@ -63,6 +63,7 @@ def joinTable(request, tableID=1):
 
 	# Add User
 	current_user = User.objects.get(character_id=request.session['char']['CharacterID'])
+	current_user_stats = current_user.user_stats
 
 	args['table'] = table.id
 	args['username'] = current_user.character_name
@@ -74,9 +75,9 @@ def joinTable(request, tableID=1):
 	
 	## Inject amount of player $$ into game
 	args['amountPlay'] = table.tableBlind*25
-	UserStats_t = current_user.user_stats
-	UserStats_t.balance = UserStats_t.balance-args['amountPlay']
-	UserStats_t.save()
+	current_user_stats.changeBalance(table.tableBlind*25)
+
+	request.session['userinfo']['userstats']['balance'] = current_user_stats.balance
 	
 	return render_to_response('game.html', args)
 

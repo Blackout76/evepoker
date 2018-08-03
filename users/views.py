@@ -11,7 +11,7 @@ from esi.esi import esi_secure, esi_security, esi_verify
 # get the profile
 @login_required()
 def profile(request):
-	args = RequestContext(request)
+	args = {}
 	#args['UserStats'] = get_object_or_404(UserStats, user=request.user)
 	return render_to_response('profile.html', args)
 
@@ -38,8 +38,13 @@ def oauth(request):
 		user.user_stats = user_stats
 		user.save()
 
+	request.session['userinfo'] = user.getInfo()
+
 	return HttpResponseRedirect('/tables/')
 
+def userCleanSession(request):
+	for key in request.session.keys():
+		del request.session[key]
 
 # user logout    
 def user_logout(request):
