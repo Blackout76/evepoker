@@ -1,3 +1,5 @@
+# PROJECT ABANDONED for violation EvE Online Eula
+
 #EvE Poker
 The EvE Poker game requires python and node.js function. The server end uses the django framework for the general application and a node.js instance running to handle games and logic.
 Several dependencies are also required on the server, including django for python and several libraries for node.js
